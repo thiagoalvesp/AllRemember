@@ -1,0 +1,67 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-balanced">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="side-menu"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" id="side-menu">
+        <ion-header-bar class="bar-balanced">
+            <div class="title">Menu</div>
+        </ion-header-bar>
+        <ion-content padding="false" class="side-menu-left has-header">
+            <ion-list id="menu-list">
+                <ion-item class="item item-icon-left" ui-sref="menu.home" menu-close="">
+                   <i class="icon ion-android-home"></i> Home
+                </ion-item>
+                
+                
+                <ion-item class="item item-icon-left" ui-sref="menu.eventosLista" menu-close="">
+                    <i class="icon ion-android-calendar"></i> Eventos
+                </ion-item>
+               
+                <ion-item class="item item-icon-left" ui-sref="menu.lembrancasLista" menu-close="">
+                    <i class="icon ion-ios-book"></i> Diário
+                </ion-item>
+
+                
+                <div class="item item-divider">Prontuário</div>
+                <ion-item class="item item-icon-left" ui-sref="menu.dadosPaciente" menu-close="">
+                    <i class="icon ion-person"></i> Dados do Paciente
+                </ion-item>
+                <ion-item class="item item-icon-left" ui-sref="menu.historico" menu-close="">
+                    <i class="icon ion-clipboard"></i> Histórico
+                </ion-item>
+                <ion-item class="item item-icon-left" ui-sref="menu.doencasLista" menu-close="">
+                    <i class="icon ion-sad"></i> Doenças
+                </ion-item>
+
+                <ion-item class="item item-icon-left" ui-sref="menu.alergiasLista" menu-close="">
+                    <i class="icon ion-ios-close"></i> Alergias
+                </ion-item>
+                <ion-item class="item item-icon-left" ui-sref="menu.medicamentosLista" menu-close="">
+                    <i class="icon ion-medkit"></i> Medicamentos
+                </ion-item>
+                <ion-item class="item item-icon-left" ui-sref="menu.medicosLista" menu-close="">
+                    <i class="icon ion-ios-personadd-outline"></i> Medicos
+                </ion-item>
+                <div class="item item-divider"></div>
+                <ion-item class="item item-icon-left" ui-sref="menu.contatosLista" menu-close="">
+                    <i class="icon ion-android-people"></i> Contatos
+                </ion-item>
+                     <ion-item class="item item-icon-left" ui-sref="menu.dicasLista" menu-close="">
+                    <i class="icon ion-information-circled"></i> Dicas
+                </ion-item>
+
+                
+                <ion-item class="item item-icon-left" ui-sref="paginaInicial" menu-close="">
+                     <i class="icon ion-log-out"></i> Sair
+                </ion-item>
+
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

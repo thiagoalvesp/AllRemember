@@ -1,0 +1,25 @@
+<ion-view title="Lista de Medicamentos" id="medicamentosLista" ng-controller="medicamentosListaCtrl">
+    
+    <ion-content padding="true" class="has-header">
+        
+        <ion-list>
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" ng-model="criterioDeBusca" placeholder="Pesquisar">
+            </label>         
+            <ion-item class="item-icon-right" ng-repeat="medicamento in medicamentosLista | filter : {nome:criterioDeBusca}">
+                    {{medicamento.nome}}
+            <a class="icon ion-chevron-left"></a>       
+            <ion-option-button class="button-energized icon-left ion-edit" ng-click="editar(medicamento.id)" ng-hide="isPaciente"> Editar</ion-option-button>
+            <ion-option-button class="button-positive icon-left ion-eye" ng-click="editar(medicamento.id)" ng-hide="!isPaciente"> Visualizar</ion-option-button>             
+            <ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="remover(medicamento.id)" ng-hide="isPaciente"> Remover</ion-option-button>
+            </ion-item>
+        </ion-list>            
+    </ion-content>
+
+    <div class="bar bar-footer bar-stable" ng-hide="isPaciente">
+        <div class="row">
+            <a ng-click="adicionar()" class="col button button-balanced ion-android-add"> Adicionar Medicamento</a>     
+        </div>
+    </div>
+</ion-view>

@@ -1,0 +1,31 @@
+<ion-view title="Histórico" id="historico" ng-controller="historicoCtrl">
+
+    <ion-content padding="true" class="has-header">
+
+        <form name="formHistorico" class="list" novalidate>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Descrição</span>
+                    <textarea  rows="20" cols="10"	
+                     name="descricao"
+                     ng-model="historico.descricao"
+                     ng-readonly="isPaciente" required>
+                     </textarea>
+                </label>
+                <div ng-messages="formHistorico.descricao.$error" 
+                ng-messages-include="templates/form-errors.html" 
+                class="form-errors">
+                </div>
+
+            </ion-list>
+            <div class="padding">
+                <a class="button button-balanced  button-full icon-left ion-archive" ng-hide="isPaciente" ng-disabled="formHistorico.$invalid"
+                ng-click="gravar()">Gravar</a>
+            </div>
+
+ 
+        </form>
+
+    </ion-content>
+</ion-view>
+

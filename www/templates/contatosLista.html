@@ -1,0 +1,26 @@
+<ion-view title="Lista de Contatos" id="contatosLista" ng-controller="contatosListaCtrl">
+
+    <ion-content padding="true" class="has-header">
+
+        <ion-list>
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" ng-model="criterioDeBusca" placeholder="Pesquisar">
+            </label>
+            <ion-item class="item item-avatar" ng-repeat="contato in contatosLista | filter : {nome:criterioDeBusca}">
+                <img ng-src="{{contato.fotoURI}}">
+                <h2>{{contato.nome}}</h2>
+                <p>{{contato.celular}}</p>
+                <ion-option-button class="button-energized icon-left ion-edit" ng-click="editar(contato.id)" ng-hide="isPaciente"> Editar</ion-option-button>
+                <ion-option-button class="button-positive icon-left ion-eye" ng-click="editar(contato.id)" ng-hide="!isPaciente"> Visualizar</ion-option-button>
+                <ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="remover(contato.id)" ng-hide="isPaciente"> Remover</ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+    <div class="bar bar-footer bar-stable" ng-hide="isPaciente">
+        <div class="row">
+            <a ng-click="adicionar()" class="col button button-balanced ion-android-add"> Adicionar Contato</a>
+        </div>
+    </div>
+</ion-view>

@@ -1,0 +1,46 @@
+<ion-view title="Editar Alergia" id="alergiasEditar">
+
+    <ion-content padding="true" class="has-header">
+         
+        <form name="formAlergia" class="list" novalidate>
+            <ion-list>
+                <label class="item item-input" ng-class="{ 'has-error' : formAlergia.nome.$invalid}">
+                    <span class="input-label">Nome</span>
+                    <input type="text"
+                     name="nome"
+                     ng-model="alergia.nome" 
+                     ng-minlength="5" 
+                     ng-readonly="isPaciente"
+                     required>
+                </label>
+                <div ng-messages="formAlergia.nome.$error" 
+                ng-messages-include="templates/form-errors.html" 
+                class="form-errors">
+                <div class="form-error" ng-message="minlength">Campo deve ser maior que 4 caracteres.</div>
+                </div>
+
+                <label class="item item-input" ng-class="{ 'has-error' : formAlergia.descricao.$invalid}">
+                    <span class="input-label">Descrição</span>
+                    <textarea  rows="6" cols="10"	
+                     name="descricao"
+                     ng-model="alergia.descricao"
+                     ng-readonly="isPaciente"
+                     required>
+                     </textarea>
+                </label>
+                <div ng-messages="formAlergia.descricao.$error" 
+                ng-messages-include="templates/form-errors.html" 
+                class="form-errors">
+                </div>
+            </ion-list>
+            <div class="padding">
+                <a class="button button-balanced  button-full icon-left ion-archive" 
+                ng-disabled="formAlergia.$invalid" 
+                ng-click="gravar()"
+                ng-hide="isPaciente">Gravar</a>
+                <a class="button button-balanced  button-full button-clear" ng-click="limpar()">Voltar</a>
+            </div>
+        </form>
+
+    </ion-content>
+</ion-view>

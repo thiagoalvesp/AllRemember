@@ -1,0 +1,77 @@
+<ion-view title="Adicionar Evento" id="eventosAdicionar">
+
+    <ion-content padding="true" class="has-header">
+
+        <form name="formEvento" class="list" novalidate>
+            <ion-list>
+                <label class="item item-input" ng-class="{ 'has-error' : formEvento.nome.$invalid}">
+                    <span class="input-label">Nome</span>
+                    <input type="text"
+                     name="nome"
+                     ng-model="evento.nome" 
+                     ng-readonly="isPaciente"
+                     ng-minlength="5" 
+                     required>
+                </label>
+                <div ng-messages="formEvento.nome.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                    <div class="form-error" ng-message="minlength">Campo deve ser maior que 4 caracteres.</div>
+                </div>
+
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                    <span class="input-label" name="data" aria-required="true">{{evento.data}} {{evento.hora}}</span>
+                </label>
+                    <a class="button button-icon icon ion-calendar"  ng-hide="isPaciente" ng-click="openDatePicker()"></a>
+                    <a class="button button-icon icon ion-android-time"  ng-hide="isPaciente" ng-click="openTimePicker()"></a>
+                </div>
+                <div ng-messages="formEvento.data.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                </div>
+
+
+
+                <label class="item item-input" ng-class="{ 'has-error' : formEvento.local.$invalid}">
+                    <span class="input-label">Local</span>
+                    <input type="text"
+                     name="local"
+                     ng-model="evento.local" 
+                     ng-readonly="isPaciente"
+                     ng-minlength="5" 
+                     required>
+                </label>
+                <div ng-messages="formEvento.local.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                    <div class="form-error" ng-message="minlength">Campo deve ser maior que 4 caracteres.</div>
+                </div>
+
+
+                <label class="item item-input">
+                    <i class="icon ion-ios-bell"></i>
+                    <span class="input-label"> Minutos para avisar antes do evento</span>
+                    <input type="number"
+                     name="minutosAntesDoEvento"
+                     ng-model="evento.minutosAntesDoEvento" 
+                     ng-readonly="isPaciente"
+                     required>
+                </label>
+                <div ng-messages="formEvento.minutosAntesDoEvento.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                </div>
+
+
+            </ion-list>
+            <div class="padding">
+                <a class="button button-balanced  button-full icon-left ion-archive" 
+                ng-disabled="((evento.data == '__/__/____') || (evento.hora == '__:__')) || (formEvento.$invalid)" 
+                ng-hide="isPaciente"
+                ng-click="gravar()">Gravar</a>
+                <a class="button button-balanced  button-full button-clear" ng-click="limpar()">Voltar</a>
+            </div>
+            
+            <div ng-if="evento.dataInvalida" 
+            ng-messages-include="templates/form-errors.html" 
+            class="form-errors">
+            <div class="form-error" ng-if="evento.dataInvalida">Data menor que a data atual.</div>
+            </div>
+        </form>
+
+    </ion-content>
+</ion-view>
+

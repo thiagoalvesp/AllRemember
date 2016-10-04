@@ -1,0 +1,49 @@
+<ion-view title="Dados do Paciente" id="dadosPaciente" ng-controller="dadosPacienteCtrl">
+
+    <ion-content padding="true" class="has-header">
+
+        <form name="formDadosPaciente" class="list" novalidate>
+
+
+            <a class="item item-avatar" ng-click="TirarFoto()">
+                <img ng-src="{{dadosPaciente.fotoURI}}" height="100" width="100">
+            </a>
+
+            <label class="item item-input">
+                    <span class="input-label">Nome</span>
+                    <input type="text"
+                     name="nome"
+                     ng-model="dadosPaciente.nome" 
+                     ng-minlength="5" 
+                     required>
+            </label>
+
+
+            <ion-radio ng-model="dadosPaciente.sexo" ng-value="'M'">Masculino</ion-radio>
+            <ion-radio ng-model="dadosPaciente.sexo" ng-value="'F'">Feminino</ion-radio>
+
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <span class="input-label" name="data" aria-required="true">Data de Nascimento {{dadosPaciente.dataNascimento}}</span>
+                </label>
+                <a class="button button-icon icon ion-calendar" ng-click="openDatePicker()"></a>
+            </div>
+
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                Estágio Alzheimer
+                </div>
+            <select ng-model="dadosPaciente.estagioAlzheimer" ng-options="estagio.nome for estagio in estagiosDoenca track by estagio.nome"></select>
+            </label>
+
+            </ion-list>
+            <div class="padding">
+                <a class="button button-balanced  button-full icon-left ion-archive" ng-click="gravar()">Gravar</a>
+            </div>
+
+
+        </form>
+
+    </ion-content>
+</ion-view>

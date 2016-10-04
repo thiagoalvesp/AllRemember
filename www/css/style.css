@@ -1,0 +1,45 @@
+/* Empty. Add your own CSS if you like */
+.platform-ios .manual-ios-statusbar-padding{
+padding-top:20px;
+}
+.manual-remove-top-padding{
+padding-top:0px; 
+}
+.manual-remove-top-padding .scroll{
+padding-top:0px !important;
+}
+ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
+margin-left:-10px;
+margin-right:-10px;
+}
+ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
+border-radius:0px;
+border-left:0px;
+border-right: 0px;
+}
+
+/** Styling for the username field **/
+label.item.has-error {  
+border-bottom: 2px solid red;
+}
+
+/** Styling for the password field when an error exists**/
+label.item.has-error-lr {  
+border-left: 2px solid red;
+border-right: 2px solid red;
+}
+
+/** Styling for the password field when an error has been resolved**/
+label.item.valid-lr {  
+border-left: 2px solid green;
+border-right: 2px solid green;
+}
+
+/** Styling for the error text and container **/
+.form-errors {
+margin: 5px 0
+}
+.form-error {
+padding: 2px 0 2px 16px;
+color: red;
+}

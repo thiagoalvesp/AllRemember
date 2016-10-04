@@ -1,0 +1,62 @@
+<ion-view title="Adicionar Medico" id="medicosAdicionar">
+
+    <ion-content padding="true" class="has-header">
+
+        <form name="formMedico" class="list" novalidate>
+            <ion-list>
+
+                <a class="item item-avatar" ng-click="TirarFoto()">
+                    <img ng-src="{{medico.fotoURI}}" height="100" width="100">
+                </a>
+
+                <label class="item item-input" ng-class="{ 'has-error' : formMedico.nome.$invalid}">
+                    <span class="input-label">Nome</span>
+                    <input type="text"
+                     name="nome"
+                     ng-model="medico.nome" 
+                     ng-minlength="5" 
+                     required>
+                </label>
+                <div ng-messages="formMedico.nome.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                    <div class="form-error" ng-message="minlength">Campo deve ser maior que 4 caracteres.</div>
+                </div>
+
+                 <label class="item item-input" ng-class="{ 'has-error' : formMedico.especialidade.$invalid}">
+                    <span class="input-label">Especialidade</span>
+                    <input type="text"
+                     name="especialidade"
+                     ng-model="medico.especialidade" 
+                     required>
+                </label>
+                <div ng-messages="formMedico.especialidade.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                </div>
+
+                <label class="item item-input" ng-class="{ 'has-error' : formMedico.telefone.$invalid}">
+                    <span class="input-label">Telefone</span>
+                    <input type="text"
+                     name="telefone"
+                     ng-model="medico.telefone" 
+                     required>
+                </label>
+                <div ng-messages="formMedico.telefone.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                </div>
+
+                <label class="item item-input" ng-class="{ 'has-error' : formMedico.email.$invalid}">
+                    <span class="input-label">E-mail</span>
+                    <input type="email"
+                     name="email"
+                     ng-model="medico.email" 
+                     required>
+                </label>
+                <div ng-messages="formMedico.email.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
+                </div>
+               
+            </ion-list>
+            <div class="padding">
+                <a class="button button-balanced  button-full icon-left ion-archive" ng-disabled="formMedico.$invalid" ng-click="gravar()">Gravar</a>
+                <a class="button button-balanced  button-full button-clear" ng-click="limpar()">Voltar</a>
+            </div>
+        </form>
+
+    </ion-content>
+</ion-view>

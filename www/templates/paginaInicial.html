@@ -1,0 +1,12 @@
+<ion-view id="paginaInicial" hide-nav-bar="true" ng-controller="paginaInicialCtrl">
+    <ion-content padding="true">
+        <form name="formPaginaInicial" class="list">
+            <img ng-src="img/icon.png" height="300" width="350">
+            <div class="padding">
+            <a class="button button-balanced  button-full icon-left ion-log-in" ng-click="entrar()">Paciente</a>
+            <a ui-sref="login" class="button button-balanced  button-full icon-left ion-log-in">Cuidador</a>
+            <a ui-sref="novoPerfil" class="button button-balanced  button-full button-clear">Ou criar um novo perfil</a>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
