@@ -1209,6 +1209,7 @@ angular.module('app.controllers', [])
         inputTime: (8 * 60 * 60),
         step: 30
       };
+      
 
       $scope.openTimePicker = function () {
         ionicTimePicker.openTimePicker(ipObj1);

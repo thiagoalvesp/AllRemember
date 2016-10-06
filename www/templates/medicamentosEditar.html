@@ -39,7 +39,7 @@
                     <a class="button button-icon icon ion-android-time" ng-click="openTimePicker()"></a>
                 </div>
                 <ion-list>
-                    <ion-item ng-repeat="hr in medicamento.horarios | orderBy : 'hr' " class="item item-icon-right">
+                    <ion-item ng-repeat="hr in medicamento.horarios | orderBy : hr " class="item item-icon-right">
                         {{hr}}
                         <i class="icon ion-trash-b" ng-click="removeHourSelected(hr)"></i>
                     </ion-item>
