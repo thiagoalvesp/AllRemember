@@ -7,7 +7,7 @@
               <i class="icon ion-search placeholder-icon"></i>
               <input type="text" ng-model="criterioDeBusca" placeholder="Pesquisar">
             </label>         
-            <ion-item class="item item-icon-left item-icon-right" ng-repeat="evento in eventosLista | filter : {nome:criterioDeBusca}">
+            <ion-item class="item item-icon-left item-icon-right" ng-repeat="evento in eventosLista | filter : {nome:criterioDeBusca} track by evento.id">
             <a class="icon ion-android-alarm-clock"></a>  
             {{evento.data}} {{evento.hora}} - {{evento.nome}}
             <a class="icon ion-chevron-left"></a>       

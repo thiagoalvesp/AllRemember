@@ -26,8 +26,6 @@ angular.module('app', ['ionic','ngCordova','ngMessages','app.controllers','app.r
 
     db = $cordovaSQLite.openDB({ name: "allremeber.db", location: 'default' });
     
-    
-    //$cordovaSQLite.execute(db, "drop TABLE dadosPaciente");
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lembrancas(lembranca text, descricao text)");
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS usuarios(nome text, senha text)");
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS alergias(nome text, descricao text)");

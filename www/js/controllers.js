@@ -122,7 +122,7 @@ angular.module('app.controllers', [])
       if (minutes.toString().length == 1) {
         minutes = "0" + minutes;
       }
-      if (hour > 17 && hour < 6){
+      if (hour > 17 || hour < 6){
         $scope.periodo = "noite";
       }else{
         $scope.periodo = "dia";
@@ -275,7 +275,7 @@ angular.module('app.controllers', [])
 
         if (dataAtual.getTime() > dataSelecao.getTime()) {
           $ionicPopup.alert({
-            title: 'Date e Horário Incorreto!',
+            title: 'Alerta!',
             template: 'Data e horário não pode ser inferior ao horário atual.'
           }).then(function (res) { });
         } else {
@@ -414,7 +414,7 @@ angular.module('app.controllers', [])
 
         if (dataAtual.getTime() > dataSelecao.getTime()) {
           $ionicPopup.alert({
-            title: 'Date e Horário Incorreto!',
+            title: 'Alerta!',
             template: 'Data e horário não pode ser inferior ao horário atual.'
           }).then(function (res) { });
         } else {
@@ -505,8 +505,8 @@ angular.module('app.controllers', [])
   //FimDiario
 
   //Historico
-  .controller('historicoCtrl', ['$scope', '$stateParams', '$state', 'HistoricoFactory', '$rootScope', 'usuarioFactory',
-    function ($scope, $stateParams, $state, HistoricoFactory, $rootScope, usuarioFactory) {
+  .controller('historicoCtrl', ['$scope', '$stateParams', '$state', 'HistoricoFactory', '$rootScope', 'usuarioFactory','$ionicPopup',
+    function ($scope, $stateParams, $state, HistoricoFactory, $rootScope, usuarioFactory, $ionicPopup) {
 
 
       $scope.historico = HistoricoFactory.carregar();
@@ -519,14 +519,20 @@ angular.module('app.controllers', [])
 
       $scope.gravar = function () {
         HistoricoFactory.adicionar($scope.historico);
+        $ionicPopup.alert({
+                title: 'Informação!',
+                template: 'Gravado com Sucesso!'
+        }).then(function (res) { });
+
+
       }
 
 
     }])
 
   //Dados Paciente
-  .controller('dadosPacienteCtrl', ['$scope', '$stateParams', '$state', 'DadosPacienteFactory', '$rootScope', 'usuarioFactory', 'ionicDatePicker', '$cordovaCamera',
-    function ($scope, $stateParams, $state, DadosPacienteFactory, $rootScope, usuarioFactory, ionicDatePicker, $cordovaCamera) {
+  .controller('dadosPacienteCtrl', ['$scope', '$stateParams', '$state', 'DadosPacienteFactory', '$rootScope', 'usuarioFactory', 'ionicDatePicker', '$cordovaCamera','$ionicPopup',
+    function ($scope, $stateParams, $state, DadosPacienteFactory, $rootScope, usuarioFactory, ionicDatePicker, $cordovaCamera, $ionicPopup) {
 
       $scope.estagiosDoenca = [
         { id: 0, nome: 'Inicial' },
@@ -553,6 +559,12 @@ angular.module('app.controllers', [])
         }
 
         DadosPacienteFactory.adicionar(dadosForSave);
+
+        $ionicPopup.alert({
+                title: 'Informação!',
+                template: 'Gravado com Sucesso!'
+        }).then(function (res) { });
+
       }
 
       //datepicker
@@ -1199,7 +1211,7 @@ angular.module('app.controllers', [])
               $scope.medicamento.horarios.push(hour + ':' + minutes);
             } else {
               $ionicPopup.alert({
-                title: 'Horário Incorreto!',
+                title: 'Alerta!',
                 template: 'Esse horário já foi escolhido: ' + hour + ':' + minutes + ' .'
               }).then(function (res) { });
             }

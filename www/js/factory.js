@@ -45,14 +45,14 @@ angular.module('app.factory', [])
 
             ProximoEvento: function () {
 
-                
+
 
                 var query = "select nome, data, hora from eventos order by data, hora ";
                 $cordovaSQLite.execute(db, query, []).then(function (result) {
                     if (result.rows.length > 0) {
-                        console.log(JSON.stringify(result.rows.item(0),null,4));
-                        usuario.evento = result.rows.item(0).nome  
-                    }else{
+                        console.log(JSON.stringify(result.rows.item(0), null, 4));
+                        usuario.evento = result.rows.item(0).nome
+                    } else {
                         usuario.evento = 'Nenhum evento marcado!';
                     }
 
@@ -60,8 +60,8 @@ angular.module('app.factory', [])
                     console.log(JSON.stringify(error));
                 });
 
-               console.log(usuario.evento); 
-               return usuario.evento;
+                console.log(usuario.evento);
+                return usuario.evento;
 
             }
 
@@ -1023,14 +1023,14 @@ angular.module('app.factory', [])
 
                 //Apagar o medicamentos agendados
                 var query = "select * from medicamentos where rowid = ?";
-                 $cordovaSQLite.execute(db, query, []).then(function (result) {
+                $cordovaSQLite.execute(db, query, [medicamentoId]).then(function (result) {
 
                     if (result.rows.length > 0) {
 
-                         var horarios = result.rows.item(0).horarios.split("*");
+                        var horarios = result.rows.item(0).horarios.split("*");
 
-                         for (var i = 0; i < horarios.length; i++) {
-                                
+                        for (var i = 0; i < horarios.length; i++) {
+
                             var _data = result.rows.item(0).fazUsoDesde.split("/");
 
                             var _horaMinutos = horarios[i].split(":");
@@ -1041,26 +1041,24 @@ angular.module('app.factory', [])
                             var _hora = _horaMinutos[0];
                             var _minutos = _horaMinutos[1];
 
-                            var _dataNotificacao = new Date(_ano, _mes, _dia, _hora, _minutos, 0, 0);
-                            var _dataNotificacao = _dataNotificacao.getTime();
+                            var _dataId = new Date(_ano, _mes, _dia, _hora, _minutos, 0, 0);
+                            var _dataId = _dataId.getTime();
 
-                            console.log('Apagado');
-                            console.log(_dataNotificacao);
-                            var idSchedule = result.insertId.toString().concat(_dataNotificacao.toString());
+                            var idSchedule = medicamentoId.toString().concat(_dataId.toString());
                             console.log(idSchedule);
                             //Cancelar a notificacao
                             $cordovaLocalNotification.cancel(idSchedule).then(function (result) { });
-                         }
+                        }
 
                     }
-                
+
                 }, function (error) {
                     console.log(JSON.stringify(error));
                 });
 
                 query = "delete from medicamentos where rowid = ?";
                 $cordovaSQLite.execute(db, query, [medicamentoId]).then(function (result) {
-                    
+
                     for (var i = 0; i < medicamentos.length; i++) {
                         if (medicamentos[i].id == medicamentoId) {
                             medicamentos.splice(i, 1);
@@ -1083,47 +1081,61 @@ angular.module('app.factory', [])
                     strHorarios = strHorarios + medicamento.horarios[i] + '*'
                 }
                 strHorarios = strHorarios.slice(0, strHorarios.length - 1);
-                //console.log(medicamento.alarme);
 
                 $cordovaSQLite.execute(db, query, [medicamento.nome, medicamento.fazUsoDesde, medicamento.dose, strHorarios, medicamento.alarme])
                     .then(function (result) {
 
-                        for (var i = 0; i < medicamento.horarios.length; i++) {
+                        if (medicamento.alarme) {
 
-                    
-                            var _data = medicamento.fazUsoDesde.split("/");
-                            var _horaMinutos = medicamento.horarios[i].split(":");
-                            var _ano = _data[2];
-                            var _mes = _data[1] - 1;
-                            var _dia = _data[0];
-                            var _hora = _horaMinutos[0];
-                            var _minutos = _horaMinutos[1];
-                            var _dataNotificacao = new Date(_ano, _mes, _dia, _hora, _minutos, 0, 0);
-                            var _dataNotificacao = _dataNotificacao.getTime();
-                            //console.log('Agendado');
-                            //console.log(_dataNotificacao);
-                            
-                            //Uso o fazUsoDesde para compor o id schedule porem não uso ele para agendar
-                            var idSchedule = result.insertId.toString().concat(_dataNotificacao.toString());
-                            //console.log(idSchedule);
+                            for (var i = 0; i < medicamento.horarios.length; i++) {
 
-                            //altero a data para de hoje ou amanha dependendo do hr
-                            var _firstAt = new Date();
-                            _firstAt.setHours(_hora);
-                            _firstAt.setMinutes(_minutos);
-                            _firstAt = _firstAt.getTime();
-                            console.log(_firstAt);
 
-                            //Agenda A notificao
-                            $cordovaLocalNotification.schedule({
-                                id: idSchedule,
-                                title: 'Medicamento',
-                                text: 'Nome: ' + medicamento.nome + ' - Horário: ' + medicamento.horarios[i],
-                                At: _firstAt,
-                                every: 'day'
-                            }).then(function (result) {
-                                // ...
-                            });
+                                var _data = medicamento.fazUsoDesde.split("/");
+                                var _horaMinutos = medicamento.horarios[i].split(":");
+                                var _ano = _data[2];
+                                var _mes = _data[1] - 1;
+                                var _dia = _data[0];
+                                var _hora = _horaMinutos[0];
+                                var _minutos = _horaMinutos[1];
+                                var _dataId = new Date(_ano, _mes, _dia, _hora, _minutos, 0, 0);
+                                var _dataId = _dataId.getTime();
+
+                                //Uso o fazUsoDesde para compor o id schedule porem não uso ele para agendar
+                                var idSchedule = result.insertId.toString().concat(_dataId.toString());
+                                console.log(idSchedule);
+
+                                //altero a data para hoje ou amanha dependendo do hr
+                                var _dataHoraNotificacao = new Date();
+                                _dataHoraNotificacao.setHours(_hora);
+                                _dataHoraNotificacao.setMinutes(_minutos);
+                                _dataHoraNotificacao = _dataHoraNotificacao.getTime();
+
+                                var _agora = new Date();
+                                _agora = _agora.getTime();
+
+                                var _firstAt = new Date();
+                                _firstAt.setHours(_hora);
+                                _firstAt.setMinutes(_minutos);
+
+                                if (_agora >= _dataHoraNotificacao) {
+                                    _firstAt.setDate(_firstAt.getDate() + 1);
+                                }
+
+                                _firstAt = _firstAt.getTime();
+
+                                //ate aqui esta correto
+
+                                //Agenda A notificao
+                                $cordovaLocalNotification.schedule({
+                                    id: idSchedule,
+                                    title: 'Medicamento',
+                                    text: 'Nome: ' + medicamento.nome + ' - Horário: ' + medicamento.horarios[i],
+                                    firstAt: _firstAt,
+                                    every: 'day'
+                                }).then(function (result) {
+                                    // ...
+                                });
+                            }
                         }
 
                         medicamentos.push({
@@ -1142,19 +1154,110 @@ angular.module('app.factory', [])
 
             editar: function (medicamento) {
 
+                //Deleta as notificações
+                var query = "select * from medicamentos where rowid = ?";
+                $cordovaSQLite.execute(db, query, [medicamento.id]).then(function (result) {
+
+                    if (result.rows.length > 0) {
+
+                        var horarios = result.rows.item(0).horarios.split("*");
+
+                        for (var i = 0; i < horarios.length; i++) {
+
+                            var _data = result.rows.item(0).fazUsoDesde.split("/");
+
+                            var _horaMinutos = horarios[i].split(":");
+                            var _ano = _data[2];
+                            var _mes = _data[1] - 1;
+                            var _dia = _data[0];
+
+                            var _hora = _horaMinutos[0];
+                            var _minutos = _horaMinutos[1];
+
+                            var _dataId = new Date(_ano, _mes, _dia, _hora, _minutos, 0, 0);
+                            var _dataId = _dataId.getTime();
+
+                            var idSchedule = medicamento.id.toString().concat(_dataId.toString());
+                            console.log(idSchedule);
+                            //Cancelar a notificacao
+                            $cordovaLocalNotification.cancel(idSchedule).then(function (result) { });
+                        }
+
+                    }
+
+                }, function (error) {
+                    console.log(JSON.stringify(error));
+                });
+
                 var query = "update medicamentos set nome = ?, fazUsoDesde = ?, dose = ?, horarios = ?, alarme = ?  where rowid = ?";
 
                 var strHorarios = "";
                 for (var i = 0; i < medicamento.horarios.length; i++) {
                     strHorarios = strHorarios + medicamento.horarios[i] + '*'
                 }
-                console.log("up");
                 strHorarios = strHorarios.slice(0, strHorarios.length - 1)
-                console.log(strHorarios);
+
 
                 $cordovaSQLite.execute(db, query, [medicamento.nome, medicamento.fazUsoDesde, medicamento.dose, strHorarios, medicamento.alarme, medicamento.id])
                     .then(function (result) {
 
+
+
+                        //Se for Alarme Insere elas novamente
+                        if (medicamento.alarme) {
+
+                            for (var i = 0; i < medicamento.horarios.length; i++) {
+
+
+                                var _data = medicamento.fazUsoDesde.split("/");
+                                var _horaMinutos = medicamento.horarios[i].split(":");
+                                var _ano = _data[2];
+                                var _mes = _data[1] - 1;
+                                var _dia = _data[0];
+                                var _hora = _horaMinutos[0];
+                                var _minutos = _horaMinutos[1];
+                                var _dataId = new Date(_ano, _mes, _dia, _hora, _minutos, 0, 0);
+                                var _dataId = _dataId.getTime();
+
+                                //Uso o fazUsoDesde para compor o id schedule porem não uso ele para agendar
+                                var idSchedule = result.insertId.toString().concat(_dataId.toString());
+                                console.log(idSchedule);
+
+                                //altero a data para hoje ou amanha dependendo do hr
+                                var _dataHoraNotificacao = new Date();
+                                _dataHoraNotificacao.setHours(_hora);
+                                _dataHoraNotificacao.setMinutes(_minutos);
+                                _dataHoraNotificacao = _dataHoraNotificacao.getTime();
+
+                                var _agora = new Date();
+                                _agora = _agora.getTime();
+
+                                var _firstAt = new Date();
+                                _firstAt.setHours(_hora);
+                                _firstAt.setMinutes(_minutos);
+
+                                if (_agora >= _dataHoraNotificacao) {
+                                    _firstAt.setDate(_firstAt.getDate() + 1);
+                                }
+
+                                _firstAt = _firstAt.getTime();
+
+                                //ate aqui esta correto
+
+                                //Agenda A notificao
+                                $cordovaLocalNotification.schedule({
+                                    id: idSchedule,
+                                    title: 'Medicamento',
+                                    text: 'Nome: ' + medicamento.nome + ' - Horário: ' + medicamento.horarios[i],
+                                    firstAt: _firstAt,
+                                    every: 'day'
+                                }).then(function (result) {
+                                    // ...
+                                });
+                            }
+                        }
+
+                        //Atualiza o medicamento no Array
                         for (var i = 0; i < medicamentos.length; i++) {
                             if (medicamentos[i].id == medicamento.id) {
                                 medicamentos[i] = medicamento;

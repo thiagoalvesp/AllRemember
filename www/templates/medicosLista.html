@@ -7,7 +7,7 @@
               <i class="icon ion-search placeholder-icon"></i>
               <input type="text" ng-model="criterioDeBusca" placeholder="Pesquisar">
             </label>
-            <ion-item class="item item-avatar" ng-repeat="medico in medicosLista | filter : {nome:criterioDeBusca}">
+            <ion-item class="item item-avatar" ng-repeat="medico in medicosLista | filter : {nome:criterioDeBusca} track by medico.id">
                 <img ng-src="{{medico.fotoURI}}">
                 <h2>{{medico.nome}}</h2>
                 <p>{{medico.especialidade}}</p>

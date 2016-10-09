@@ -7,7 +7,7 @@
               <i class="icon ion-search placeholder-icon"></i>
               <input type="text" ng-model="criterioDeBusca" placeholder="Pesquisar">
             </label>         
-            <ion-item class="item-icon-right" ng-repeat="dica in dicasLista | filter : {nome:criterioDeBusca}">
+            <ion-item class="item-icon-right" ng-repeat="dica in dicasLista | filter : {nome:criterioDeBusca} track by dica.id">
                     
                     <a ng-click="abrirPage('{{dica.link}}')">{{dica.nome}} </a>
             <a class="icon ion-chevron-left"></a>       

@@ -10,6 +10,7 @@
                      name="nome"
                      ng-model="medicamento.nome" 
                      ng-minlength="5" 
+                     ng-readonly="isPaciente" 
                      required>
                 </label>
                 <div ng-messages="formMedicamento.nome.$error" ng-messages-include="templates/form-errors.html" class="form-errors">
@@ -27,6 +28,7 @@
                     <span class="input-label">Dose</span>
                     <input type="text"
                      name="dose"
+                     ng-readonly="isPaciente" 
                      ng-model="medicamento.dose">
                 </label>
 
@@ -41,7 +43,7 @@
                 <ion-list>
                     <ion-item ng-repeat="hr in medicamento.horarios | orderBy : hr " class="item item-icon-right">
                         {{hr}}
-                        <i class="icon ion-trash-b" ng-click="removeHourSelected(hr)"></i>
+                        <i class="icon ion-trash-b" ng-hide="isPaciente" ng-click="removeHourSelected(hr)"></i>
                     </ion-item>
                 </ion-list>
                 </label>
@@ -49,7 +51,7 @@
 
             </ion-list>
             <div class="padding">
-                <a class="button button-balanced  button-full icon-left ion-archive" ng-disabled="formMedicamento.$invalid" ng-click="gravar()">Gravar</a>
+                <a class="button button-balanced  button-full icon-left ion-archive" ng-disabled="formMedicamento.$invalid" ng-click="gravar()" ng-hide="isPaciente">Gravar</a>
                 <a class="button button-balanced  button-full button-clear" ng-click="limpar()">Voltar</a>
             </div>
 

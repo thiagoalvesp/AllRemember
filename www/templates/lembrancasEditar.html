@@ -10,7 +10,6 @@
                      name="lembranca"
                      ng-model="lembranca.lembranca" 
                      ng-minlength="5" 
-                     ng-readonly="isPaciente"
                      required>
                 </label>
                 <div ng-messages="formLembranca.nome.$error" 
@@ -24,7 +23,6 @@
                     <textarea  rows="6" cols="10"	
                      name="descricao"
                      ng-model="lembranca.descricao"
-                     ng-readonly="isPaciente"
                      required>
                      </textarea>
                 </label>
@@ -36,8 +34,7 @@
             <div class="padding">
                 <a class="button button-balanced  button-full icon-left ion-archive" 
                 ng-disabled="formLembranca.$invalid" 
-                ng-click="gravar()"
-                ng-hide="isPaciente">Gravar</a>
+                ng-click="gravar()">Gravar</a>
                 <a class="button button-balanced  button-full button-clear" ng-click="limpar()">Voltar</a>
             </div>
         </form>
